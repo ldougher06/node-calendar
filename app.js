@@ -6,9 +6,8 @@ var zellers = require(process.cwd() + '/lib/zellers');
 var formatDate = require(process.cwd() + '/lib/format');
 var alignCal = require(process.cwd() + '/lib/align');
 
-if(process.argv.length === 2) {
+if(process.argv.length === 3) {
   var y = process.argv[2];
-
   console.log(calOutput(1, m, y, getMonth[m].days, getMonth[m].name));
 } else if (process.argv.length > 3) {
   var m = process.argv[2];
@@ -27,6 +26,9 @@ function calOutput(d, m, y, days, name){
     day: d,
     month: m,
     year: y
+  }
+  if ((( (name === 'February') && y % 4 == 0) && (y % 100 != 0)) || (y % 400 == 0)){
+  days = days * 1 + 1;
   }
   var formatted = formatDate(inputDate);
   var weekday = zellers(formatted);
